@@ -14,40 +14,62 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <template>
     <style>
       :host {
-        display: block;
+        display: grid;
+        grid-template-columns: auto auto;
+        grid-template-areas: "sidebar view";
+        justify-content: start;
+        grid-gap: 100px;
       }
-      td{
-        border: 1px solid black;
+
+      .poke-container{
+        display: grid;
+        grid-template-columns: auto auto;
+        grid-template-areas: "name image";
+        justify-content: space-between;
       }
-      table {
-        border: 1px solid black;
-        margin-top: 50px;
-        margin-left: 10px;
-        float: left;
+
+      .poke-name{
+        grid-area: name;
+        text-align: left;
       }
+
+      .poke-img{
+        grid-area: image;
+        justify-self: end;
+      }
+
+      .sidebar{
+        display: grid;
+        border: 2px solid black;
+        max-width: 200px;
+        grid-area: sidebar;
+      }
+
+      .view{
+        grid-area: view;
+        justify-self: end;
+        max-width: 500px;
+      }
+
     </style>
     <firebase-query
       id="pokemon"
       path="/pokemon"
       data="{{pokemon}}">
     </firebase-query>
-
-    <template is="dom-repeat" items="{{pokemon}}" as="poke">
-      <table width="200">
-        <tr>
-          <td><a href="#/poke">{{poke.name}}</a></td>
-        </tr>
-        <tr>
-          <td>
-            <img width="100" src="{{poke.url}}" alt="{{poke.name}}">
-          </td>
-        </tr>
-      </table>
-      <template is="dom-if" if="{{!poke.evolves}}">
-        <br style="clear:left">
+    <div class="sidebar">
+      <template is="dom-repeat" items="{{pokemon}}" as="poke">
+        <paper-button class="poke-container" on-tap="pokeShow">
+          <div class="poke-name">{{poke.name}}</div>
+          <div class="poke-img" on-click="pokeShow">
+            <img width="50" src="{{poke.url}}" alt="{{poke.name}}">
+          </div>
+        </paper-button>
       </template>
-
-    </template>
+    </div>
+    <div class="view">
+      <poke-view poke="{{selectedPokemon}}"></poke-view>
+    </div>
   </template>
   <script>
   (function() {
@@ -57,11 +79,18 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       is: 'poke-ctrl',
 
       properties: {
-        foo: {
-          type: String,
-          value: 'poke-ctrl',
-          notify: true
+        selectedPokemon: {
+          type: Object,
+          value: {
+            name: "Choose Your pokemon",
+            url: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/International_Pok%C3%A9mon_logo.svg/1200px-International_Pok%C3%A9mon_logo.svg.png"
+          }
         }
+      },
+
+      pokeShow: function(e){
+        this.selectedPokemon = e.model.poke;
+        console.log(this.selectedPokemon);
       }
     });
   })();

@@ -1,0 +1,470 @@
+<!--
+@license
+Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+
+<dom-module id="poke-view">
+  <template>
+    <style>
+      :host {
+        display: block;
+        position: fixed;
+        border: solid black 2px;
+        margin-top: 20px;
+        background-color: red;
+        border-radius: 10px;
+      }
+      img {
+        max-width: 165px;
+        align-self: center;
+      }
+
+      .img-container{
+        grid-area: image;
+        border: 2px solid black;
+        max-width: 200px;
+        padding: 10px;
+        justify-self: center;
+        align-self: start;
+        min-height: 195px;
+        margin-bottom: 10px;
+        display: grid;
+        background-color: #98cb98;
+        border-radius: 3px;
+      }
+
+      .display-head{
+        border: solid black 2px;
+        margin: 20px 20px -25px 20px;
+        text-align: center;
+        background: white;
+      }
+
+      .main {
+        border: solid black 2px;
+        margin: 20px 20px 10px 20px;
+        text-align: center;
+        border-radius: 0px 0px 0px 20px;
+        background: white;
+        min-height: 250px;
+        display: grid;
+        grid-template-areas: "top-btn1 top-btn2"
+                             "image    image"
+                             "btn-med  lines";
+      }
+
+      .head{
+        padding: 10px 0px 0px 10px;
+        display: grid;
+        grid-template-columns: 50px 10px 10px 10px;
+        grid-template-areas: "lrg-btn sml-btn1 sml-btn2 sml-btn3";
+        grid-gap: 10px;
+      }
+
+      .btn-lrg{
+        width: 50px;
+        height: 50px;
+        background-color: #3298cb;
+        border-radius: 50px;
+        box-shadow: 3px 3px 3px 1px black;
+        border: white solid 4px;
+        grid-area: lrg-btn;
+        background: radial-gradient(farthest-corner at 0 0, #CEDEFF 14%, #3298cb 55%);
+      }
+
+      .btn-sml{
+        width: 10px;
+        height: 10px;
+        border-radius: 10px;
+        border: black solid 1px;
+      }
+
+      .red{
+        background-color: red;
+      }
+
+      .yellow{
+        background-color: yellow;
+      }
+
+      .green{
+        background-color: green;
+      }
+
+      .blue{
+        background-color: blue;
+      }
+
+      .btn1{
+        grid-area: sml-btn1;
+      }
+
+      .btn2{
+        grid-area: sml-btn2;
+      }
+
+      .btn3{
+        sml-btn3;
+      }
+
+      .shape{
+        width: 280px;
+        padding-bottom: 20px;
+        border: none;
+        align-self: end;
+        grid-area: shapeOne;
+        box-shadow: 5px -5px 15px -5px inset;
+      }
+
+      .shape:after {
+        content:'';
+        width:150px;
+        height:2px;
+        background:black;
+        position:absolute;
+        top:92px;
+        box-shadow: 0px 1px 5px 0px black;
+      }
+
+      .shapetwo{
+        width: 130px;
+        height: 40px;
+        justify-self: end;
+        margin-top: 50px;
+        border-radius: 75px 0 0 0;
+        border: 2px transparent solid;
+        border-top: 2px solid black;
+        border-right: none;
+        box-shadow: 10px 12px 11px -13px inset;
+      }
+
+      .shapeContainer{
+        display: grid;
+        grid-template-columns: auto auto;
+        grid-template-areas: "buttons  shapeTwo virtBar"
+                             "shapeOne shapeOne virtBar";
+        justify-content: center;
+      }
+
+      .btn-top1{
+        grid-area: top-btn2;
+        margin: 10px 10px 0px 3px;
+        width: 7px;
+        height: 7px;
+      }
+
+      .btn-top2{
+        grid-area: top-btn1;
+        justify-self: right;
+        margin: 10px 3px 10px 10px;
+        width: 7px;
+        height: 7px;
+      }
+
+      .btn-container{
+        grid-area: buttons;
+        display: grid;
+        padding: 10px 0px 0px 10px;
+        grid-template-columns: 50px 10px 10px 10px;
+        grid-template-areas: "lrg-btn sml-btn1 sml-btn2 sml-btn3";
+        grid-gap: 10px;
+        margin-bottom: 10px;
+      }
+
+      .btn-med{
+        width: 15px;
+        height: 15px;
+        border-radius: 15px;
+        border: 1px solid black;
+        margin: 0px 0px 10px 25px;
+        grid-area: btn-med;
+      }
+
+      .btn-container{
+        grid-area: buttons;
+        display: grid;
+        padding: 10px 0px 0px 10px;
+        grid-template-columns: 50px 10px 10px 10px;
+        grid-template-areas: "lrg-btn sml-btn1 sml-btn2 sml-btn3";
+        grid-gap: 10px;
+        margin-bottom: 10px;
+      }
+
+      .int-lines{
+        grid-area: lines;
+        justify-self: right;
+        margin-right: 24px;
+      }
+
+      .line{
+        height: 1px;
+        width: 15px;
+        border: 2px solid transparent;
+        border-top: 2px solid black;
+      }
+
+      .btns-container{
+        display: grid;
+        grid-template-areas: "big-button    long-lines    joypad"
+                             "tiny-buttons2 blank-console joypad"
+                             ".          .          other-buttons";
+        grid-template-columns: 60px 100px 100px;
+        grid-gap: 10px;
+        margin-left: 20px;
+      }
+
+      .blk-btn{
+        width: 30px;
+        height: 30px;
+        background-color: #585858;
+        border-radius: 25px;
+        border: black solid 2px;
+        grid-area: big-button;
+        box-shadow: 3px 3px 4px -1px black;
+      }
+
+      .long-line{
+        width: 50px;
+        height: 2px;
+        grid-area: long-lines;
+        border-radius: 10px;
+        margin: 5px 10px 0px -25px;
+        border: 2px solid black;
+      }
+
+      #lngline-red{
+        justify-self: start;
+      }
+
+      #lngline-blue{
+        justify-self: end;
+      }
+
+      .btn-tiny{
+        width: 3px;
+        height: 3px;
+        background-color: black;
+        grid-area: tiny-buttons2;
+      }
+
+      #tny-btn1{
+        grid-area: tiny-buttons2;
+        margin-left: 5px;
+      }
+
+      #tny-btn2{
+        grid-area: tiny-buttons2;
+        justify-self: center;
+        margin-left: -10px;
+      }
+
+      #tny-btn3{
+        grid-area: other-buttons;
+        position: relative;
+        top: 15px;
+        right: -19px;
+      }
+
+      #tny-btn4{
+        grid-area: other-buttons;
+        position: relative;
+        top: 15px;
+        right: -36px;
+      }
+
+      #tny-btn5{
+        grid-area: other-buttons;
+        position: relative;
+        top: 15px;
+        right: -27px;
+      }
+
+      .blank-box{
+        width: 90px;
+        height: 45px;
+        background-color: #37cc5e;
+        grid-area: blank-console;
+        margin-left: -5px;
+        border: 2px solid black;
+        margin: -15px 0px 0px -10px;
+        border-radius: 3px;
+      }
+
+      .joy-pad{
+        height: 55px;
+        width: 55px;
+        grid-area: joypad;
+        display: grid;
+        grid-template-areas: ".       top      ."
+                             "left    center   right"
+                             ".      bottom    .";
+        margin-top: 10px;
+        margin-left: -10px;
+      }
+
+      .pad-compt{
+        width: 20px;
+        height: 20px;
+        background-color: #585858;
+        border: 2px solid black;
+      }
+
+      #pad-top{
+        grid-area: top;
+        border-bottom: 2px solid transparent;
+        border-radius: 5px 5px 0px 0px;
+        box-shadow: 1px 2px 1px 1px black;
+      }
+
+      #pad-right{
+        grid-area: right;
+        border-left: 2px solid transparent;
+        border-radius: 0px 5px 5px 0px;
+        box-shadow: 1px 2px 1px 1px black;
+      }
+
+      #pad-bottom{
+        grid-area: bottom;
+        border-top: 2px solid transparent;
+        border-radius: 0px 0px 5px 5px;
+        box-shadow: 2px 1px 1px 0px black;
+      }
+
+      #pad-left{
+        grid-area: left;
+        border-right: 2px solid transparent;
+        border-radius: 5px 0px 0px 5px;
+      }
+
+      #pad-center{
+        grid-area: center;
+        border: 2px solid transparent;
+      }
+
+      .con-btnsml{
+        width: 10px;
+        height: 10px;
+        border-radius: 10px;
+        border: 2px solid black;
+        grid-area: other-buttons;
+        position: relative;
+        top: 10px;
+      }
+
+      .pad-btn{
+        width: 8px;
+        height: 8px;
+        background-color: grey;
+        border: 2px solid black;
+        grid-area: center;
+        justify-self: center;
+        align-self: center;
+        border-radius: 13px;
+      }
+
+      .virt-bar{
+        height: 481px;
+        width: 30px;
+        background-color: red;
+        border: 2px solid black;
+        align-self: end;
+        grid-area: virtBar;
+        border-radius: 0px 0px 5px 0px;
+        box-shadow: -3px -1px 8px -3px;
+      }
+
+      .bar-box{
+        height: 20px;
+        width: 30px;
+        position: relative;
+        border: 1px solid transparent;
+        border-top: 2px solid black;
+        border-bottom: 2px solid black;
+      }
+
+      #bbox1{
+        top: 15px;
+      }
+
+      #bbox2{
+        top: 420px;
+      }
+    </style>
+    <div class="shapeContainer">
+      <div class="btn-container">
+        <div class="btn-lrg"></div>
+        <div class="btn-sml btn1 red"></div>
+        <div class="btn-sml btn2 yellow"></div>
+        <div class="btn-sml btn3 green"></div>
+      </div>
+      <div class="shape">
+        <div class="main">
+          <div class="btn-sml btn-top1 red"></div>
+          <div class="btn-sml  btn-top2 red"></div>
+          <div class="img-container">
+            <img src="{{poke.url}}" alt="{{poke.name}}">
+          </div>
+          <div class="btn-med red"></div>
+          <div class="int-lines">
+            <div class="line"></div>
+            <div class="line"></div>
+            <div class="line"></div>
+            <div class="line"></div>
+          </div>
+        </div>
+        <div class="btns-container">
+          <div class="blk-btn"></div>
+          <div class="long-line red" id="lngline-red"></div>
+          <div class="long-line blue" id="lngline-blue"></div>
+          <div class="btn-tiny" id="tny-btn1"></div>
+          <div class="btn-tiny" id="tny-btn2"></div>
+          <div class="blank-box"></div>
+          <div class="joy-pad">
+            <div class="pad-compt" id="pad-top"></div>
+            <div class="pad-compt" id="pad-right"></div>
+            <div class="pad-compt" id="pad-center"></div>
+            <div class="pad-compt" id="pad-bottom"></div>
+            <div class="pad-compt" id="pad-left"></div>
+            <div class="pad-btn"></div>
+          </div>
+          <div class="con-btnsml red"></div>
+          <div class="btn-tiny" id="tny-btn3"></div>
+          <div class="btn-tiny" id="tny-btn4"></div>
+          <div class="btn-tiny" id="tny-btn5"></div>
+        </div>
+      </div>
+      <div class="shapetwo"></div>
+      <div class="virt-bar">
+        <div class="bar-box" id="bbox1"></div>
+        <div class="bar-box" id="bbox2"></div>
+      </div>
+    </div>
+    <!--
+    <div class="display-head">
+      <h1><span hidden$="{{!poke.number}}">#</span> {{poke.number}} {{poke.name}}</h1>
+    </div>
+    -->
+  </template>
+  <script>
+  (function() {
+    'use strict';
+
+    Polymer({
+      is: 'poke-view',
+
+      properties: {
+        poke: {
+          type: Object
+        }
+      }
+    });
+  })();
+  </script>
+</dom-module>
