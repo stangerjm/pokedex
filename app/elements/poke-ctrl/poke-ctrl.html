@@ -68,7 +68,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       </template>
     </div>
     <div class="view">
-      <poke-view poke="{{selectedPokemon}}"></poke-view>
+      <poke-view poke="{{selectedPokemon}}" pokelist="{{pokemon}}"></poke-view>
     </div>
   </template>
   <script>
@@ -90,7 +90,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       pokeShow: function(e){
         this.selectedPokemon = e.model.poke;
-        console.log(this.selectedPokemon);
       }
     });
   })();
