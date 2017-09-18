@@ -9,7 +9,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 @font-face {
   font-family: "poke-font";
-  src: url("./PokemonGB.ttf");
+  src: url("https://cdn.rawgit.com/stangerjm/pokedex/dda96e9b/app/styles/PokemonGB.ttf");
 }
 
 body {
