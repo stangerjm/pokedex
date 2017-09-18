@@ -15,7 +15,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <style>
       :host {
         display: grid;
-        grid-template-columns: auto auto;
         grid-template-areas: "sidebar view";
         justify-content: start;
         grid-gap: 100px;
@@ -23,7 +22,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       .poke-container{
         display: grid;
-        grid-template-columns: auto auto;
         grid-template-areas: "name image";
         justify-content: space-between;
       }
@@ -49,6 +47,55 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         grid-area: view;
         justify-self: end;
         max-width: 500px;
+      }
+
+      @media screen and (max-width: 1030px){
+        :host{
+          grid-gap: 45px;
+        }
+      }
+
+      @media screen and (max-width: 920px){
+        :host{
+          grid-template-areas: "view"
+                               "sidebar";
+        }
+
+        .sidebar{
+          display: grid;
+          grid-template-columns: auto auto;
+          border: 2px solid black;
+          min-width: 335px;
+          grid-area: sidebar;
+        }
+
+        poke-view{
+          position: relative;
+        }
+      }
+
+      @media screen and (max-width: 630px){
+        .view{
+          height: 350px;
+          justify-self: start;
+        }
+
+        poke-view{
+          top: -100px;
+          left: -48px;
+        }
+      }
+
+      @media screen and (max-width: 400px){
+        .view{
+          height: 250px;
+          justify-self: start;
+        }
+
+        poke-view{
+          top: -140px;
+          left: -60px;
+        }
       }
 
     </style>

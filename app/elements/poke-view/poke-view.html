@@ -78,7 +78,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         height: 50px;
         background-color: #3298cb;
         border-radius: 50px;
-        box-shadow: 3px 3px 3px 1px black;
+        -webkit-box-shadow: 3px 3px 3px 1px black;
         border: white solid 4px;
         grid-area: lrg-btn;
         background: radial-gradient(farthest-corner at 0 0, #CEDEFF 14%, #3298cb 55%);
@@ -156,7 +156,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         justify-self: end;
         margin-top: 50px;
         border-radius: 75px 0 0 0;
-        border: 2px transparent solid;
         border-top: 2px solid black;
         border-right: none;
         box-shadow: 10px 12px 11px -13px inset;
@@ -446,7 +445,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           height:40px;
           background:red;
           position:absolute;
-          top:52px;
+          top:50px;
           margin-left: -2px;
           border: 2px solid black;
           border-bottom: none;
@@ -625,6 +624,19 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       #greyRect2{
         grid-area: greyRect2;
         justify-self: end;
+      }
+
+      @media screen and (max-width: 630px){
+        :host {
+          width: 300px;
+          transform: scale(0.65)
+        }
+      }
+
+      @media screen and (max-width: 400px){
+        :host{
+          transform: scale(0.5);
+        }
       }
 
     </style>
